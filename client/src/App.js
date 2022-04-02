@@ -10,13 +10,13 @@ import {useEffect} from "react";
 function App() {
 
 
-    // useEffect(() => {
-    //     async function fetchData() {
-    //         await axios.get('/register').then(res => {
-    //             console.log(res)
-    //         })}
-    //     fetchData();
-    // },[])
+    useEffect(() => {
+        async function fetchData() {
+            await axios.get("127.0.0.1:5000").then(res => {
+                console.log(res)
+            })}
+        fetchData();
+    },[])
 
     return (
       <BrowserRouter>
