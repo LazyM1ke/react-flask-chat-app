@@ -6,4 +6,4 @@ from requests import post, get
 #                  'user_id': '1',
 #                  'is_private': 'dfsfs'}))
 
-print(get('http://localhost:5000/api/profile/1').json())
+
