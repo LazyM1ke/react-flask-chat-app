@@ -10,7 +10,7 @@ app.config["SECRET_KEY"] = global_settings['secret_key']
 
 
 # Регистрация пользователя
-@app.route("/register", methods=['POST'])
+@app.route("/reg", methods=['POST'])
 def check_register_form():
     if request.method == 'POST':
         # Получаем json с данными
@@ -47,8 +47,10 @@ def check_login_form():
                 return {'status': 'False'}
         except Exception as Error:
             print(f'Check login form error: {Error}')
+            return {'status': 'False'}
     else:
         print('Handler "/log" (check_login_form) works only with post requests')
+        return {'status': 'False'}
 
 
 if __name__ == "__main__":
