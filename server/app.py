@@ -8,14 +8,17 @@ app.config["SECRET_KEY"] = global_settings['secret_key']
 
 
 # Главная страница
-@app.route("/reg", methods=['GET', 'POST'])
+@app.route("/", methods=['GET'])
 def index():
-    if request.method == 'GET':
-        return {'hui': 'hui'}
-    if request.method == 'POST':
-        return {'post': 'post'}
+    pass
+
+
+@app.route("/kek", methods=['POST'])
+def register():
+    print(request.json())
 
 
 if __name__ == "__main__":
     db_session.global_init('db/data_base.db')
-    app.run(debug=True)
+    app.run(host="127.0.0.1", port=5000, debug=True)
+
