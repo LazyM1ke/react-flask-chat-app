@@ -8,7 +8,7 @@ app = Flask(__name__)
 app.config["SECRET_KEY"] = global_settings['secret_key']
 
 
-@app.route("/register", methods=['POST'])
+@app.route("/reg", methods=['POST'])
 def register():
     if request.method == 'POST':
         # Получаем json с данными

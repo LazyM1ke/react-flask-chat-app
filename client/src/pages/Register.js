@@ -12,7 +12,7 @@ const Register = () => {
         event.preventDefault();
         axios({
             method: 'post',
-            url: '/kek',
+            url: '/reg',
             data: {
                 data
             },

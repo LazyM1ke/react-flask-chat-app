@@ -10,12 +10,6 @@ import {dialogClasses} from "@mui/material";
 
 function App() {
 
-    const data = {"data": "data"}
-
-
-
-
-
 
     return (
       <BrowserRouter>
