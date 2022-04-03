@@ -8,8 +8,9 @@ app = Flask(__name__)
 app.config["SECRET_KEY"] = global_settings['secret_key']
 
 
-@app.route("/reg", methods=['POST'])
-def register():
+# Регистрация пользователя
+@app.route("/register", methods=['POST'])
+def check_register_form():
     if request.method == 'POST':
         # Получаем json с данными
         try:
@@ -25,9 +26,28 @@ def register():
             db_sess.commit()
             return {'status': 'True'}
         except Exception as Error:
-            print(f'Register error: {Error}')
+            print(f'Check register form error: {Error}')
             return {'status': 'False'}
 
+
+# Авторизация пользователя
+@app.route('/log', methods='POST')
+def check_login_form():
+    if request.method == 'POST':
+        try:
+            db_sess = db_session.create_session()
+            login_data = request.get_json()['data']
+            username = login_data['username']
+            hashed_password = login_data['password']
+            user = db_sess.query(User).filter(User.username == username).first()
+            if user and user.check_password(hashed_password):
+                return {'status': 'True'}
+            else:
+                return {'status': 'False'}
+        except Exception as Error:
+            print(f'Check login form error: {Error}')
+    else:
+        print('Handler "/log" (check_login_form) works only with post requests')
 
 if __name__ == "__main__":
     db_session.global_init('db/data_base.db')
