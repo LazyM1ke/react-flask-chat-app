@@ -41,10 +41,13 @@ def check_login_form():
             username = login_data['username']
             hashed_password = login_data['password']
             user = db_sess.query(User).filter(User.username == username).first()
-            if user and user.check_password(hashed_password):
-                return {'status': 'True'}
+            if user:
+                if user.check_password(hashed_password):
+                    return {'status': 'True', 'message': 'Can you feel my heart?'}
+                else:
+                    return {'status': 'False', 'message': 'Incorrect password'}
             else:
-                return {'status': 'False'}
+                return {'status': 'False', 'message': 'Invalid login'}
         except Exception as Error:
             print(f'Check login form error: {Error}')
             return {'status': 'False'}
