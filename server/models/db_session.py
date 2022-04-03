@@ -16,11 +16,11 @@ def global_init(db_file):
         return
 
     if not db_file or db_file.strip() == "":
-        raise Exception("Не указан файл базы данных.")
+        raise Exception("Файл базы данных не указан или не был найден")
 
     conn_str = f"sqlite:///{db_file.strip()}?check_same_thread=False"
 
-    print("Подключаемся к базе данных", conn_str)
+    print("Подключаемся к базе данных...", conn_str)
 
     engine = sa.create_engine(conn_str, echo=False)
 
@@ -29,6 +29,7 @@ def global_init(db_file):
     from . import __all_models
 
     SqlAlchemyBase.metadata.create_all(engine)
+    print('Успещное подключение к БД SQLite3')
 
 
 def create_session() -> Session:
