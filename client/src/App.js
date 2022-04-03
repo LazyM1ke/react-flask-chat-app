@@ -10,19 +10,10 @@ import {dialogClasses} from "@mui/material";
 
 function App() {
 
-    // axios.get("http://127.0.0.1:5000", {
-    //     mode: 'no-cors'
-    // }).then(res => console.log(res))
-    //
-    const data = { username: 'example' };
+    const data = {"data": "data"}
 
-    useEffect(() => {
-        fetch("/reg", {
-            method:"POST",
-            mode: 'no-cors',
-            body: JSON.stringify(data)
-        }).then(res => console.log(res.json()))
-    },[])
+
+
 
 
 

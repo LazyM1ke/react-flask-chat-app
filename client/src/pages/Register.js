@@ -1,15 +1,27 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Link} from "react-router-dom";
 import './Register.scss';
 import {Button, TextField} from "@mui/material";
+import axios from "axios";
 
 const Register = () => {
     const [data, setData] = useState({});
 
+
     const handleSubmit = (event) => {
         event.preventDefault();
-        console.log(JSON.stringify(data));
+        axios({
+            method: 'post',
+            url: '/kek',
+            data: {
+                data
+            },
+            headers: {
+                mode: 'no-cors'
+            }
+        }).then(res => console.log(res.data))
     }
+
 
     return (
         <div className="form-container">
