@@ -5,8 +5,16 @@ import {Button, TextField} from "@mui/material";
 import axios from "axios";
 
 const Register = () => {
-    const [data, setData] = useState({});
+    const [data, setData] = useState({
+        username: "",
+        email: "",
+        password: "",
+        confirmPassword: "",
+    });
 
+    const handleChange = (event) => {
+        setData({ ...data, [event.target.name]: event.target.value });
+    }
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -22,6 +30,15 @@ const Register = () => {
         }).then(res => console.log(res.data))
     }
 
+    // const handleValidation = () => {
+    //     const {username, email, password, confirmPassword} = data
+    //
+    //     if (password !== confirmPassword) {
+    //
+    //     }
+    //
+    // }
+
 
     return (
         <div className="form-container">
@@ -31,27 +48,30 @@ const Register = () => {
 
                 <TextField id="outlined-basic"
                            label="Имя пользователя"
+                           name="username"
                            variant="outlined"
-                           onChange={(e) => setData({...data, username: e.target.value})}
-
+                           onChange={(e) => handleChange(e)}
                 />
                 <TextField id="outlined-basic"
                            label="Эл. почта"
+                           name="email"
                            variant="outlined"
                            type="email"
-                           onChange={(e) => setData({...data, email: e.target.value})}
+                           onChange={(e) => handleChange(e)}
                 />
                 <TextField id="outlined-basic"
                            label="Пароль"
+                           name="password"
                            variant="outlined"
                            type="password"
-                           onChange={(e) => setData({...data, password: e.target.value})}
+                           onChange={(e) => handleChange(e)}
                 />
                 <TextField id="outlined-basic"
                            label="Подтверждение пароля"
+                           name="confirmPassword"
                            variant="outlined"
                            type="password"
-                           onChange={(e) => setData({...data, confirmPassword: e.target.value})}
+                           onChange={(e) => handleChange(e)}
                 />
 
                 <Button variant="contained" onSubmit={handleSubmit} type='submit'>Создать аккаунт</Button>
