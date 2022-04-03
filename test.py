@@ -1,4 +1,4 @@
-from requests import post
+from requests import post, get
 
 # print(post('http://localhost:5000/reg',
 #            json={'title': 'Заголовок',
@@ -6,8 +6,4 @@ from requests import post
 #                  'user_id': '1',
 #                  'is_private': 'dfsfs'}))
 
-print(post('http://localhost:5000/reg',
-           json={'title': 'Заголовок',
-                 'content': 'Текст новости',
-                 'user_id': 1,
-                 'is_private': 'False'}))
+print(get('http://localhost:5000/api/profile/1').json())

@@ -2,6 +2,7 @@ from flask import Flask, request, redirect
 from config_server import *
 from models import db_session
 from models.users import User
+from API import api
 
 app = Flask(__name__)
 
@@ -18,7 +19,7 @@ def check_register_form():
             req = request.get_json()
             res = req['data']
             user = User(
-                name=res['username'],
+                username=res['username'],
                 email=res['email'],
             )
             user.set_password(res['password'])
@@ -31,7 +32,7 @@ def check_register_form():
 
 
 # Авторизация пользователя
-@app.route('/log', methods='POST')
+@app.route('/log', methods=['POST'])
 def check_login_form():
     if request.method == 'POST':
         try:
@@ -49,6 +50,13 @@ def check_login_form():
     else:
         print('Handler "/log" (check_login_form) works only with post requests')
 
+
 if __name__ == "__main__":
     db_session.global_init('db/data_base.db')
+    # Подключение API
+    try:
+        app.register_blueprint(api.blueprint)
+        print('API запущен...')
+    except Exception as Error:
+        print(f'Ошибка при подключении API: {Error}')
     app.run(host="127.0.0.1", port=5000, debug=True)
