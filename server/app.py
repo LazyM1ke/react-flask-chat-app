@@ -18,42 +18,54 @@ def check_register_form():
             db_sess = db_session.create_session()
             req = request.get_json()
             res = req['data']
-            user = User(
-                username=res['username'],
-                email=res['email'],
-            )
-            user.set_password(res['password'])
-            db_sess.add(user)
-            db_sess.commit()
-            return {'status': 'True'}
+            user = db_sess.query(User).filter(User.username == res['username']).first()
+            if not user:
+                email = db_sess.query(User).filter(User.email == res['email']).first()
+                if not email:
+                    user = User(
+                        username=res['username'],
+                        email=res['email'],
+                    )
+                    user.set_password(res['password'])
+                    db_sess.add(user)
+                    db_sess.commit()
+                    return {'status': 'True', 'message': 'User has been added to database'}
+                else:
+                    return {'status': 'False', 'message': 'email already exist'}
+            else:
+                return {'status': 'False', 'message': 'username already exist'}
         except Exception as Error:
             print(f'Check register form error: {Error}')
-            return {'status': 'False'}
+            return {'status': 'False', 'message': 'Error'}
 
 
 # Авторизация пользователя
 @app.route('/log', methods=['POST'])
 def check_login_form():
-    if request.method == 'POST':
-        try:
-            db_sess = db_session.create_session()
-            login_data = request.get_json()['data']
-            username = login_data['username']
-            hashed_password = login_data['password']
-            user = db_sess.query(User).filter(User.username == username).first()
-            if user:
-                if user.check_password(hashed_password):
-                    return {'status': 'True', 'message': 'Can you feel my heart?'}
+    try:
+        if request.method == 'POST':
+            try:
+                db_sess = db_session.create_session()
+                login_data = request.get_json()['data']
+                username = login_data['username']
+                hashed_password = login_data['password']
+                user = db_sess.query(User).filter(User.username == username).first()
+                if user:
+                    if user.check_password(hashed_password):
+                        return {'status': 'True', 'message': 'Can you feel my heart?'}
+                    else:
+                        return {'status': 'False', 'message': 'Incorrect password'}
                 else:
-                    return {'status': 'False', 'message': 'Incorrect password'}
-            else:
-                return {'status': 'False', 'message': 'Invalid login'}
-        except Exception as Error:
-            print(f'Check login form error: {Error}')
+                    return {'status': 'False', 'message': 'Invalid login'}
+            except Exception as Error:
+                print(f'Check login form error: {Error}')
+                return {'status': 'False'}
+        else:
+            print('Handler "/log" (check_login_form) works only with post requests')
             return {'status': 'False'}
-    else:
-        print('Handler "/log" (check_login_form) works only with post requests')
-        return {'status': 'False'}
+    except Exception as Error:
+        print(f'check_login_form func error: {Error}')
+        return {'status': 'False', 'message': 'Error'}
 
 
 if __name__ == "__main__":
