@@ -11,6 +11,7 @@ __factory = None
 
 
 def global_init(db_file):
+    print('test')
     global __factory
 
     if __factory is not None:
