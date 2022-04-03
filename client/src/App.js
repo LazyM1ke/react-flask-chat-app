@@ -5,18 +5,26 @@ import Login from "./pages/Login";
 import Chat from "./pages/Chat";
 import axios from "axios";
 import {useEffect} from "react";
+import {dialogClasses} from "@mui/material";
 
 
 function App() {
 
+    // axios.get("http://127.0.0.1:5000", {
+    //     mode: 'no-cors'
+    // }).then(res => console.log(res))
+    //
+    const data = { username: 'example' };
 
     useEffect(() => {
-        async function fetchData() {
-            await axios.get("127.0.0.1:5000").then(res => {
-                console.log(res)
-            })}
-        fetchData();
+        fetch("/reg", {
+            method:"POST",
+            mode: 'no-cors',
+            body: JSON.stringify(data)
+        }).then(res => console.log(res.json()))
     },[])
+
+
 
     return (
       <BrowserRouter>
