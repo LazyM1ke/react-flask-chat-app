@@ -61,3 +61,25 @@ def delete_profile():
     else:
         print(f'This API request not available with not "POST" request')
         return {'status': 'False'}
+
+
+# Получить всех пользователей
+@blueprint.route('/api/get_users', methods=['GET'])
+def get_users_api():
+    if request.method == 'GET':
+        try:
+            db_sess = db_session.create_session()
+            user_list = db_sess.query(users.User).all()
+            return flask.jsonify(
+                {
+                    'data':
+                        [item.to_dict(only=('id', 'username', 'email', 'created_date'))
+                         for item in user_list]
+                }
+            )
+        except Exception as Error:
+            print(f'get_users_api function error: {Error}')
+            return {'status': 'Error'}
+    else:
+        print(f'This API request not available with not "GET" request')
+        return {'status': 'False'}

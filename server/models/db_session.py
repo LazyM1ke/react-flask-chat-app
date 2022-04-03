@@ -10,7 +10,7 @@ __factory = None
 
 
 def global_init(db_file):
-    print('test')
+    print('Начинаем подключение к базе данных...')
     global __factory
 
     if __factory is not None:
