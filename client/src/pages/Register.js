@@ -53,14 +53,21 @@ const Register = () => {
             toast.error("Эл.почта не может быть пустой", toastOptions);
             return false;
         }
-
         return true;
     };
 
-    const handleSubmit = (event) => {
+    const handleDataValidation = (response) => {
+        if (response.status === "True") {
+            toast.success(response.message, toastOptions)
+        } else {
+            toast.error(response.message, toastOptions)
+        }
+    }
+
+    const handleSubmit = async (event) => {
         event.preventDefault();
        if (handleValidation()) {
-           axios({
+           await axios({
                method: 'post',
                url: '/reg',
                data: {
@@ -69,9 +76,7 @@ const Register = () => {
                headers: {
                    mode: 'no-cors'
                }
-           }).then(res => res.data.status == "True"
-               ? toast.success("Регистрация успешна ! ", toastOptions)
-               : toast.error("ХУЙ ТАМ ПЛАВАЛ",toastOptions))
+           }).then(res => handleDataValidation(res.data))
        }
     }
 
