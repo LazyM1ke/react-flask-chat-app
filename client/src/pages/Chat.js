@@ -1,5 +1,4 @@
 import React from 'react';
-import Message from "../components/Message/Message";
 import Dialogs from "../components/Dialogs/Dialogs";
 import Header from "../components/Header/Header";
 
@@ -8,6 +7,7 @@ const Chat = () => {
         <div>
             <Header/>
             <Dialogs/>
+            <h1>test text</h1>
         </div>
     );
 };
