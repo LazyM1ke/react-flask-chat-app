@@ -29,14 +29,14 @@ def check_register_form():
                     user.set_password(res['password'])
                     db_sess.add(user)
                     db_sess.commit()
-                    return {'status': 'True', 'message': 'User has been added to database'}
+                    return {'status': 'True', 'message': 'Успешная регистрация'}
                 else:
-                    return {'status': 'False', 'message': 'email already exist'}
+                    return {'status': 'False', 'message': 'Такой email уже зарегистрирован'}
             else:
-                return {'status': 'False', 'message': 'username already exist'}
+                return {'status': 'False', 'message': 'Пользователь с таким логином уже существует'}
         except Exception as Error:
             print(f'Check register form error: {Error}')
-            return {'status': 'False', 'message': 'Error'}
+            return {'status': 'False', 'message': 'Возникла ошибка при регистрации'}
 
 
 # Авторизация пользователя
@@ -52,14 +52,14 @@ def check_login_form():
                 user = db_sess.query(User).filter(User.username == username).first()
                 if user:
                     if user.check_password(hashed_password):
-                        return {'status': 'True', 'message': 'Can you feel my heart?'}
+                        return {'status': 'True', 'message': 'Успешная авторизация'}
                     else:
-                        return {'status': 'False', 'message': 'Incorrect password'}
+                        return {'status': 'False', 'message': 'Неправильный пароль'}
                 else:
-                    return {'status': 'False', 'message': 'Invalid login'}
+                    return {'status': 'False', 'message': 'Неправильный логин'}
             except Exception as Error:
                 print(f'Check login form error: {Error}')
-                return {'status': 'False'}
+                return {'status': 'False', 'message': 'Возникла ошибка при авторизации'}
         else:
             print('Handler "/log" (check_login_form) works only with post requests')
             return {'status': 'False'}
