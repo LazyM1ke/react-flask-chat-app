@@ -6,5 +6,4 @@ from requests import post, get
 #                  'user_id': '1',
 #                  'is_private': 'dfsfs'}))
 
-print(get('http://localhost:5000/api/get_users').json())
-# backend branch
+print(get('http://127.0.0.1:5000/api/v2/users/5'))

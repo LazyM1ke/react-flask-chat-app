@@ -2,9 +2,11 @@ from flask import Flask, request, redirect
 from config_server import *
 from models import db_session
 from models.users import User
-from API import api
+from API import UsersResources
+from flask_restful import reqparse, abort, Api, Resource
 
 app = Flask(__name__)
+api = Api(app)
 
 app.config["SECRET_KEY"] = global_settings['secret_key']
 
@@ -70,10 +72,10 @@ def check_login_form():
 
 if __name__ == "__main__":
     db_session.global_init('db/data_base.db')
-    # Подключение API
+    # Был убран вызов старого API (Blueprint)
     try:
-        app.register_blueprint(api.blueprint)
-        print('API запущен...')
+        api.add_resource(UsersResources.UserResource, '/api/user/<int:user_id>')
+        api.add_resource(UsersResources.UsersResources, '/api/users')
     except Exception as Error:
-        print(f'Ошибка при подключении API: {Error}')
+        print('Api add_resource Error:', Error)
     app.run(host="127.0.0.1", port=5000, debug=True)
