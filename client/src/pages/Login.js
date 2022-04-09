@@ -41,6 +41,7 @@ const Login = () => {
 
     const handleDataValidation = (response) => {
         if (response.status === "True") {
+            localStorage.setItem("userData", data.username)
             navigate("/")
         } else {
             toast.error(response.message, toastOptions)
