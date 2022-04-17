@@ -4,11 +4,23 @@ from models import db_session
 from models.users import User
 from API import UsersResources
 from flask_restful import reqparse, abort, Api, Resource
+from CyberSecurity.Anti_SQL_Injection import check_sql_injections
 
 app = Flask(__name__)
 api = Api(app)
 
 app.config["SECRET_KEY"] = global_settings['secret_key']
+
+# Молитва чтобы точно работало
+'''
+Отче наш, сущий на небесах! Да святится имя Твоё; 
+да приидет Царствие Твоё; 
+да будет воля Твоя и на земле, как на небе; 
+хлеб наш насущный дай нам на сей день; и прости нам долги наши,
+как и мы прощаем должникам нашим; и не введи нас в искушение,
+но избавь нас от лукавого. Ибо Твоё есть Царство и сила и слава во веки.
+Аминь
+'''
 
 
 # Регистрация пользователя
@@ -20,6 +32,12 @@ def check_register_form():
             db_sess = db_session.create_session()
             req = request.get_json()
             res = req['data']
+
+            # Проверка на инъекции
+            secure_res = check_sql_injections(res['username'], res['password'])
+            if secure_res['sql_security']['status'] == 'False':
+                message = secure_res['sql_security']['description']
+                return {'status': 'False', 'message': message}
             user = db_sess.query(User).filter(User.username == res['username']).first()
             if not user:
                 email = db_sess.query(User).filter(User.email == res['email']).first()
