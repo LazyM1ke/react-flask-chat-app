@@ -7,7 +7,7 @@ from requests import post, get
 #                  'is_private': 'dfsfs'}))
 
 
-print(post('http://127.0.0.1:5000/api/add_message', json={'from': 'kekus',
+print(post('http://127.0.0.1:5000/api/get_messages', json={'from': 'kekus',
                                                           'to': 'mishasok',
-                                                          'message': 'test message'
-                                                           }))
+                                                           }).json())
+
