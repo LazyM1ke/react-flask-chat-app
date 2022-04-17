@@ -7,7 +7,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import {useNavigate} from "react-router-dom";
 import {ListItem, ListItemAvatar, ListItemButton, ListItemText, Avatar} from "@mui/material";
 
-const Dialogs = () => {
+const Dialogs = ( {changeChat} ) => {
 
     const navigate = useNavigate();
 
@@ -25,9 +25,10 @@ const Dialogs = () => {
     const filteredDialogs = dialogs.filter(dialog => dialog.username !== currentUserName)
 
 
-    const changeCurrentChat = (dialogId) => {
-        setCurrentSelected(dialogId)
-    }
+    const changeCurrentChat = (dialogId, dialog) => {
+        setCurrentSelected(dialogId);
+        changeChat(dialog);
+    };
 
     const handleLogOut = () => {
         localStorage.clear();
@@ -50,6 +51,7 @@ const Dialogs = () => {
                         <ListItem
                             key={dialog.id}
                             disablePadding
+                            onClick={() => changeCurrentChat(dialog.id, dialog)}
                         >
                             <ListItemButton>
                                 <ListItemAvatar>
