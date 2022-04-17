@@ -9,20 +9,25 @@ const ChatContainer = ( {currentChat, currentUser} ) => {
 
     const [messages, setMessages] = useState([]);
 
-    useEffect(() => {
-        // const response = axios.post("getmsg", {
-        //     from: currentUser.id,
-        //     to: currentChat.id,
-        // })
-
-    },[currentChat])
+    // useEffect(() => {
+    //     const response = axios.post("/api/get_messages", {
+    //         from: currentUser,
+    //         to: currentChat,
+    //     })
+    //
+    // },[currentChat])
 
     const handleSendMsg = async (msg) => {
         await axios.post("/api/add_message", {
             from: currentUser,
             to: currentChat.username,
             message: msg,
-        })
+        }).then(res => console.log(res.data))
+
+
+        const msgs = [...messages];
+        msgs.push({fromSelf: true, message: msg});
+        setMessages(msgs);
 
     }
 
@@ -43,21 +48,21 @@ const ChatContainer = ( {currentChat, currentUser} ) => {
             </div>
             <div className="chat-messages">
 
-                {/*{messages.map((message) => {*/}
-                {/*    return (*/}
-                {/*        <div key={uuidv4()}>*/}
-                {/*            <div*/}
-                {/*                className={`message ${*/}
-                {/*                    message.fromSelf ? "sended" : "recieved"*/}
-                {/*                }`}*/}
-                {/*            >*/}
-                {/*                <div className="content ">*/}
-                {/*                    <p>{message.message}</p>*/}
-                {/*                </div>*/}
-                {/*            </div>*/}
-                {/*        </div>*/}
-                {/*    );*/}
-                {/*})}*/}
+                {messages.map((message) => {
+                    return (
+                        <div key={uuidv4()}>
+                            <div
+                                className={`message ${
+                                    message.fromSelf ? "sended" : "recieved"
+                                }`}
+                            >
+                                <div className="content ">
+                                    <p>{message.message}</p>
+                                </div>
+                            </div>
+                        </div>
+                    );
+                })}
 
             </div>
             <ChatInput handleSendMsg={handleSendMsg}/>

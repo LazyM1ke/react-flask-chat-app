@@ -15,8 +15,9 @@ const Dialogs = ( {changeChat} ) => {
     const [currentUserName, setCurrentUserName] = useState(undefined);
     const [currentSelected, setCurrentSelected] = useState(undefined);
 
+
     useEffect(() => {
-        axios.get('/api/get_users')
+        axios.get('/api/users')
             .then(res => setDialogs(...Object.values(res.data)))
 
         setCurrentUserName(localStorage.getItem("userData"))
