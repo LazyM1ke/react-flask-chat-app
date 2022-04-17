@@ -14,5 +14,6 @@ class Messages(SqlAlchemyBase, UserMixin, SerializerMixin):
                               sqlalchemy.ForeignKey("users.id"))
     from_id = sqlalchemy.Column(sqlalchemy.Integer,
                                 sqlalchemy.ForeignKey("users.id"))
+    content = sqlalchemy.Column(sqlalchemy.String)
     created_date = sqlalchemy.Column(sqlalchemy.DateTime,
                                      default=datetime.datetime.now)
