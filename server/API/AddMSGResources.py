@@ -15,10 +15,12 @@ class AddMSGResource(Resource):
         session = db_session.create_session()
         from_user = session.query(User).filter(User.username == args['from']).first()
         to_user = session.query(User).filter(User.username == args['to']).first()
+        print(to_user.id, from_user.id)
+        print(args['message'])
         message = Messages(
             to_id=to_user.id,
             from_id=from_user.id,
-            message=args['message'],
+            content=args['message'],
             created_date=datetime.datetime.now()
         )
         session.add(message)
