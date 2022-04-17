@@ -2,7 +2,7 @@ from flask import Flask, request, redirect
 from config_server import *
 from models import db_session
 from models.users import User
-from API import UsersResources, AddMSGResources
+from API import UsersResources, AddMSGResources, GetMessagesResources
 from flask_restful import reqparse, abort, Api, Resource
 from CyberSecurity.Anti_SQL_Injection import check_sql_injections
 
@@ -95,6 +95,7 @@ if __name__ == "__main__":
         api.add_resource(UsersResources.UserResource, '/api/user/<int:user_id>')
         api.add_resource(UsersResources.UsersResources, '/api/users')
         api.add_resource(AddMSGResources.AddMSGResource, '/api/add_message')
+        api.add_resource(GetMessagesResources.GetMessagesResource, '/api/get_messages')
     except Exception as Error:
         print('Api add_resource Error:', Error)
     app.run(host="127.0.0.1", port=5000, debug=True)
