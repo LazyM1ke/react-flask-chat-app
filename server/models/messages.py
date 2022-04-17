@@ -10,10 +10,8 @@ class Messages(SqlAlchemyBase, UserMixin, SerializerMixin):
     __tablename__ = 'messages'
 
     id = sqlalchemy.Column(sqlalchemy.Integer, autoincrement=True, primary_key=True)
-    to_id = sqlalchemy.Column(sqlalchemy.Integer,
-                              sqlalchemy.ForeignKey("users.id"))
-    from_id = sqlalchemy.Column(sqlalchemy.Integer,
-                                sqlalchemy.ForeignKey("users.id"))
+    to_id = sqlalchemy.Column(sqlalchemy.Integer)
+    from_id = sqlalchemy.Column(sqlalchemy.Integer)
     content = sqlalchemy.Column(sqlalchemy.String)
     created_date = sqlalchemy.Column(sqlalchemy.DateTime,
                                      default=datetime.datetime.now)

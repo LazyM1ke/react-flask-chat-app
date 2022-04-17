@@ -6,4 +6,8 @@ from requests import post, get
 #                  'user_id': '1',
 #                  'is_private': 'dfsfs'}))
 
-print(get('http://127.0.0.1:5000/api/v2/users/5'))
+
+print(post('http://127.0.0.1:5000/api/add_message', json={'from': 'kekus',
+                                                          'to': 'mishasok',
+                                                          'message': 'test message'
+                                                           }))
