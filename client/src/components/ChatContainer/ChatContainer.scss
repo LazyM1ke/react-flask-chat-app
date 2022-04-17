@@ -40,19 +40,22 @@
     gap: 1rem;
     overflow: auto;
 
-    &::-webkit-scrollbar {
-      width: 0.2rem;
-
-      &-thumb {
-        background-color: #ffffff39;
-        width: 0.1rem;
-        border-radius: 1rem;
-      }
-    }
-
     .message {
       display: flex;
-      align-items: center;
+      justify-content: center;
+      &.sended {
+        justify-content: flex-end;
+        .content {
+          background-color: cadetblue;
+        }
+      }
+      .recieved {
+        justify-content: flex-start;
+        .content {
+          background-color: #9900ff20;
+        }
+      }
+
 
       .content {
         max-width: 40%;
@@ -66,17 +69,19 @@
         }
       }
     }
-    .sended {
-      justify-content: flex-end;
-      .content {
-        background-color: #4f04ff21;
-      }
-    }
-    .recieved {
-      justify-content: flex-start;
-      .content {
-        background-color: #9900ff20;
-      }
-    }
+
   }
+
+
+
+      &::-webkit-scrollbar {
+      width: 0.2rem;
+
+      &-thumb {
+        background-color: #ffffff39;
+        width: 0.1rem;
+        border-radius: 1rem;
+      }
+    }
+
 }

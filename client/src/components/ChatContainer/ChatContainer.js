@@ -5,17 +5,16 @@ import ChatInput from "../ChatInput/ChatInput";
 import axios from "axios";
 
 
-const ChatContainer = ( {currentChat, currentUser} ) => {
+const ChatContainer = ( {currentChat, currentUser, socket} ) => {
 
     const [messages, setMessages] = useState([]);
 
-    // useEffect(() => {
-    //     const response = axios.post("/api/get_messages", {
-    //         from: currentUser,
-    //         to: currentChat,
-    //     })
-    //
-    // },[currentChat])
+    useEffect(() => {
+        axios.post("/api/get_messages", {
+            from: currentUser,
+            to: currentChat.username,
+        }).then(res => setMessages(...Object.values(res.data)))
+    },[currentChat])
 
     const handleSendMsg = async (msg) => {
         await axios.post("/api/add_message", {
@@ -48,17 +47,16 @@ const ChatContainer = ( {currentChat, currentUser} ) => {
             </div>
             <div className="chat-messages">
 
-                {messages.map((message) => {
+                {messages.map((message, index) => {
                     return (
-                        <div key={uuidv4()}>
-                            <div
-                                className={`message ${
-                                    message.fromSelf ? "sended" : "recieved"
-                                }`}
-                            >
-                                <div className="content ">
-                                    <p>{message.message}</p>
-                                </div>
+                        <div
+                            className={`message ${
+                                message.fromself == "True" ? "sended" : "recieved"
+                            }`}
+                            key={index}
+                        >
+                            <div className="content ">
+                                <p>{message.content}</p>
                             </div>
                         </div>
                     );
