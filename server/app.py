@@ -5,11 +5,14 @@ from models.users import User
 from API import UsersResources, AddMSGResources, GetMessagesResources
 from flask_restful import reqparse, abort, Api, Resource
 from CyberSecurity.Anti_SQL_Injection import check_sql_injections
+from flask_socketio import SocketIO, send
+from requests import post
 
 app = Flask(__name__)
 api = Api(app)
 
 app.config["SECRET_KEY"] = global_settings['secret_key']
+socketIo = SocketIO(app, cors_allowed_origins='*')
 
 # Молитва чтобы точно работало
 '''
@@ -88,6 +91,17 @@ def check_login_form():
         return {'status': 'False', 'message': 'Error'}
 
 
+@socketIo.on('message')
+def handleMessage(data):
+    from_user = data['from']
+    to_user = data['to']
+    res = post('http://127.0.0.1:5000/api/get_messages', json={'from': from_user,
+                                                               'to': to_user,
+                                                               }).json()
+    send(res, broadcast=True)
+    return None
+
+
 if __name__ == "__main__":
     db_session.global_init('db/data_base.db')
     # Был убран вызов старого API (Blueprint)
@@ -98,4 +112,5 @@ if __name__ == "__main__":
         api.add_resource(GetMessagesResources.GetMessagesResource, '/api/get_messages')
     except Exception as Error:
         print('Api add_resource Error:', Error)
+    socketIo.run(app)
     app.run(host="127.0.0.1", port=5000, debug=True)
