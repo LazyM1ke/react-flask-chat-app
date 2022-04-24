@@ -1,10 +1,11 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import "./ChatInput.scss";
 import SendIcon from '@mui/icons-material/Send';
 
 const ChatInput = ( {handleSendMsg} ) => {
 
     const [msg, setMsg] = useState("");
+
 
     const sendChat = (event) => {
         event.preventDefault();

@@ -16,12 +16,19 @@ const ChatContainer = ( {currentChat, currentUser, socket} ) => {
         }).then(res => setMessages(...Object.values(res.data)))
     },[currentChat])
 
+
     const handleSendMsg = async (msg) => {
         await axios.post("/api/add_message", {
             from: currentUser,
             to: currentChat.username,
             message: msg,
         }).then(res => console.log(res.data))
+
+        socket.current.emit("message", {
+            from: currentUser,
+            to: currentChat.username,
+            message: msg,
+        });
 
 
         const msgs = [...messages];
