@@ -107,9 +107,14 @@ def addMessage(data):
     from_user = data['from']
     to_user = data['to']
     message = data['message']
-    res = post('http://127.0.0.1:5000/api/add_message', json={'from': from_user,
-                                                              'to': to_user,
-                                                              'message': message}).json()
+    # res = post('http://127.0.0.1:5000/api/add_message', json={'from': from_user,
+    #                                                           'to': to_user,
+    #                                                           'message': message}).json()
+    res = {
+        'messages': [{'content': 'test message', 'created_date': 'Sun, 17 Apr 2022 13:10:23 GMT', 'fromself': 'True'},
+                     {'content': 'test message', 'created_date': 'Sun, 17 Apr 2022 13:10:40 GMT', 'fromself': 'True'},
+                     {'content': 'jsdhfkjsdhf', 'created_date': 'Sun, 17 Apr 2022 13:57:30 GMT', 'fromself': 'True'},
+                     {'content': 'sjkdhfkjsdfh', 'created_date': 'Sun, 17 Apr 2022 13:57:52 GMT', 'fromself': 'True'}]}
     send(res, broadcast=True)
     return None
 
