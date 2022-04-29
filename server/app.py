@@ -91,13 +91,25 @@ def check_login_form():
         return {'status': 'False', 'message': 'Error'}
 
 
-@socketIo.on('message')
+@socketIo.on('get_messages')
 def handleMessage(data):
     from_user = data['from']
     to_user = data['to']
     res = post('http://127.0.0.1:5000/api/get_messages', json={'from': from_user,
                                                                'to': to_user,
                                                                }).json()
+    send(res, broadcast=True)
+    return None
+
+
+@socketIo.on('add_message')
+def addMessage(data):
+    from_user = data['from']
+    to_user = data['to']
+    message = data['message']
+    res = post('http://127.0.0.1:5000/api/add_message', json={'from': from_user,
+                                                              'to': to_user,
+                                                              'message': message}).json()
     send(res, broadcast=True)
     return None
 
