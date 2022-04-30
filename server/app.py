@@ -98,6 +98,10 @@ def check_login_form():
 def test_connect(auth):
     emit('test', {'data': 'Connected'})
 
+@socketIo.on('add_user')
+def kek(socket_id):
+    print(socket_id)
+
 
 @socketIo.on('disconnect')
 def test_disconnect(disconnect):
