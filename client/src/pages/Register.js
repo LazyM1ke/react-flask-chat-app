@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import './Register.scss';
 import 'react-toastify/dist/ReactToastify.css';
 import { Button, Stack, TextField} from "@mui/material";
@@ -7,6 +7,8 @@ import axios from "axios";
 import {toast, ToastContainer} from "react-toastify";
 
 const Register = () => {
+    const navigate = useNavigate();
+
     const [data, setData] = useState({
         username: "",
         email: "",
@@ -59,6 +61,7 @@ const Register = () => {
     const handleDataValidation = (response) => {
         if (response.status === "True") {
             toast.success(response.message, toastOptions)
+            navigate("/")
         } else {
             toast.error(response.message, toastOptions)
         }
