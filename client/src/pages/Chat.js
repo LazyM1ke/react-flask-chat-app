@@ -24,6 +24,12 @@ const Chat = () => {
     useEffect(() => {
         if (currentUser) {
             socket.current = io(host);
+            socket.current.on('connect', function () {
+                socket.current.emit("add_user", {
+                    socket_id: socket.current.id,
+                    username: currentUser,
+                })
+            })
         }
     }, [currentUser]);
 

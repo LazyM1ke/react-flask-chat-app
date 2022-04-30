@@ -15,43 +15,38 @@ const ChatContainer = ( {currentChat, currentUser, socket} ) => {
             from: currentUser,
             to: currentChat.username,
         }).then(res => setMessages(...Object.values(res.data)))
-        socket.current.emit("add_user", {
-            socket_id: socket.current.id,
-            username: currentUser,
-        })
     },[currentChat])
 
 
     const handleSendMsg = async (msg) => {
-
-
-        socket.current.emit("add_message", {
-            from: currentUser,
-            to: currentChat.username,
-            msg,
-        });
-
         await axios.post("/api/add_message", {
             from: currentUser,
             to: currentChat.username,
             message: msg,
         })
 
+        socket.current.emit("send_msg", {
+            from: currentUser,
+            to: currentChat.username,
+            message: msg,
+        });
+
 
         const msgs = [...messages];
-        msgs.push({fromSelf: true, message: msg});
+        msgs.push({fromself: "True", content: msg});
         setMessages(msgs);
     }
 
     useEffect(() => {
         if (socket.current) {
             socket.current.on("recieve_msg", (msg) => {
-                setArrivalMessages({fromSelf: false, message: msg})
+                setArrivalMessages({fromself: "False", content: msg})
             })
         }
-    })
+    },[])
 
     useEffect(() => {
+        console.log(arrivalMessages)
         arrivalMessages && setMessages((prev) => [...prev, arrivalMessages])
     },[arrivalMessages])
 

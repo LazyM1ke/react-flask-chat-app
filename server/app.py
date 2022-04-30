@@ -93,29 +93,33 @@ def check_login_form():
         print(f'check_login_form func error: {Error}')
         return {'status': 'False', 'message': 'Error'}
 
-
-@socketIo.on('connect')
-def test_connect(auth):
-    emit('test', {'data': 'Connected'})
+#
+# @socketIo.on('connection')
+# def test_connect(data):
+#     socket_id = data['socket_id']
+#     username = data['username']
+#     online_users_dict[socket_id] = username
 
 
 @socketIo.on('add_user')
 def kek(data):
+    global online_users_dict
     socket_id = data['socket_id']
     username = data['username']
-    online_users_dict[socket_id] = username
+    online_users_dict[username] = socket_id
 
 
 @socketIo.on('send_msg')
 def send_msg(data):
+    global online_users_dict
     user_socket = online_users_dict[data['to']]
-    if (user_socket):
-        emit("recieve_msg", data['msg'], to=online_users_dict[data['to']])
+    print(data['message'])
+    emit("recieve_msg", data['message'], to=user_socket)
 
 
-@socketIo.on('disconnect')
-def test_disconnect(disconnect):
-    emit('test_2', {'data': 'Disconnected'})
+# @socketIo.on('disconnect')
+# def test_disconnect(disconnect):
+#     emit('test_2', {'data': 'Disconnected'})
 
 
 if __name__ == "__main__":
