@@ -1,10 +1,23 @@
 import React, {useState, useEffect} from 'react';
 import "./ChatInput.scss";
 import SendIcon from '@mui/icons-material/Send';
+import Picker from "emoji-picker-react";
+import InsertEmoticonIcon from '@mui/icons-material/InsertEmoticon';
 
 const ChatInput = ( {handleSendMsg} ) => {
 
     const [msg, setMsg] = useState("");
+    const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+
+    const handleEmojiPickerShow = () => {
+        setShowEmojiPicker(!showEmojiPicker);
+    };
+
+    const handleEmojiClick = (event, emojiObj) => {
+        let message = msg;
+        message += emojiObj.emoji;
+        setMsg(message);
+    };
 
 
     const sendChat = (event) => {
@@ -18,6 +31,10 @@ const ChatInput = ( {handleSendMsg} ) => {
     return (
         <div className="chat-input">
             <div className="button-container">
+                <div className="emoji">
+                    <InsertEmoticonIcon onClick={handleEmojiPickerShow}/>
+                    {showEmojiPicker && <Picker onEmojiClick={handleEmojiClick}/>}
+                </div>
                 {/*<div className="emoji">*/}
                 {/*    <BsEmojiSmileFill onClick={handleEmojiPickerhideShow} />*/}
                 {/*    {showEmojiPicker && <Picker onEmojiClick={handleEmojiClick} />}*/}

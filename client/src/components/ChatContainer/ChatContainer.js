@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 import Avatar from "../../assets/avatar.png";
 import "./ChatContainer.scss";
 import ChatInput from "../ChatInput/ChatInput";
@@ -8,6 +8,7 @@ import axios from "axios";
 const ChatContainer = ( {currentChat, currentUser, socket} ) => {
 
     const [messages, setMessages] = useState([]);
+    const scrollRef = useRef();
     const [arrivalMessages, setArrivalMessages] = useState(null);
 
     useEffect(() => {
@@ -50,6 +51,10 @@ const ChatContainer = ( {currentChat, currentUser, socket} ) => {
         arrivalMessages && setMessages((prev) => [...prev, arrivalMessages])
     },[arrivalMessages])
 
+    useEffect(() => {
+        scrollRef.current?.scrollIntoView({ behavior: "smooth"});
+    }, [messages]);
+
     return (
         <div className="chat-cont">
             <div className="chat-cont-header">
@@ -78,10 +83,10 @@ const ChatContainer = ( {currentChat, currentUser, socket} ) => {
                             <div className="content ">
                                 <p>{message.content}</p>
                             </div>
-                        </div>
-                    );
+                        </div >
+                );
                 })}
-
+                <div ref={scrollRef}></div>
             </div>
             <ChatInput handleSendMsg={handleSendMsg}/>
         </div>
