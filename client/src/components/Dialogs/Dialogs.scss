@@ -31,16 +31,16 @@
       }
     }
     .dialog {
-      background-color: #ffffff34;
-      min-height: 5rem;
-      cursor: pointer;
-      width: 90%;
-      border-radius: 0.2rem;
-      padding: 0.4rem;
-      display: flex;
-      gap: 2rem;
-      align-items: center;
-      //transition: 0.5s ease-in-out;
+      //background-color: #ffffff34;
+      //min-height: 5rem;
+      //cursor: pointer;
+      //width: 90%;
+      //border-radius: 0.2rem;
+      ////padding: 0.4rem;
+      //display: flex;
+      ////gap: 2rem;
+      //align-items: center;
+      transition: 0.5s ease-in-out;
       .avatar {
         img {
           border-radius: 50%;
@@ -54,7 +54,7 @@
       }
     }
     .selected {
-      background-color: #9EC5AB;
+      background-color: #9EC5AB; //
     }
   }
   .current-user {

@@ -8,34 +8,52 @@ import axios from "axios";
 const ChatContainer = ( {currentChat, currentUser, socket} ) => {
 
     const [messages, setMessages] = useState([]);
+    const [arrivalMessages, setArrivalMessages] = useState(null);
 
     useEffect(() => {
         axios.post("/api/get_messages", {
             from: currentUser,
             to: currentChat.username,
         }).then(res => setMessages(...Object.values(res.data)))
+        socket.current.emit("add_user", {
+            socket_id: socket.current.id,
+            username: currentUser,
+        })
     },[currentChat])
 
 
     const handleSendMsg = async (msg) => {
+
+
+        socket.current.emit("add_message", {
+            from: currentUser,
+            to: currentChat.username,
+            msg,
+        });
+
         await axios.post("/api/add_message", {
             from: currentUser,
             to: currentChat.username,
             message: msg,
-        }).then(res => console.log(res.data))
-
-        socket.current.emit("message", {
-            from: currentUser,
-            to: currentChat.username,
-            message: msg,
-        });
+        })
 
 
         const msgs = [...messages];
         msgs.push({fromSelf: true, message: msg});
         setMessages(msgs);
-
     }
+
+    useEffect(() => {
+        if (socket.current) {
+            socket.current.on("recieve_msg", (msg) => {
+                setArrivalMessages({fromSelf: false, message: msg})
+            })
+        }
+    })
+
+    useEffect(() => {
+        arrivalMessages && setMessages((prev) => [...prev, arrivalMessages])
+    },[arrivalMessages])
 
     return (
         <div className="chat-cont">

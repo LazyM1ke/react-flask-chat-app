@@ -51,6 +51,9 @@ const Dialogs = ( {changeChat} ) => {
 
                         <ListItem
                             key={dialog.id}
+                            className={`dialog ${
+                                dialog.id === currentSelected ? "selected" : ""
+                            }`}
                             disablePadding
                             onClick={() => changeCurrentChat(dialog.id, dialog)}
                         >
