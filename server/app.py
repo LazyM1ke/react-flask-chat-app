@@ -98,9 +98,19 @@ def check_login_form():
 def test_connect(auth):
     emit('test', {'data': 'Connected'})
 
+
 @socketIo.on('add_user')
-def kek(socket_id):
-    print(socket_id)
+def kek(data):
+    socket_id = data['socket_id']
+    username = data['username']
+    online_users_dict[socket_id] = username
+
+
+@socketIo.on('send_msg')
+def send_msg(data):
+    user_socket = online_users_dict[data['to']]
+    if (user_socket):
+        emit("recieve_msg", data['msg'], to=online_users_dict[data['to']])
 
 
 @socketIo.on('disconnect')
