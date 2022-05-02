@@ -88,7 +88,7 @@ const ChatContainer = ( {currentChat, currentUser, socket} ) => {
                 })}
                 <div ref={scrollRef}></div>
             </div>
-            <ChatInput handleSendMsg={handleSendMsg}/>
+            <ChatInput handleSendMsg={handleSendMsg} currentChat={currentChat}/>
         </div>
     );
 };

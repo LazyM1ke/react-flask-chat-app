@@ -2,12 +2,15 @@
   display: grid;
   grid-template-rows: 10% 75% 15%;
   overflow: hidden;
-  background-color: #32746D;
+  background: transparent;
+  border-radius: 14px 0 0 14px;
   .brand {
     display: flex;
     align-items: center;
     gap: 1rem;
     justify-content: center;
+    background-color: #6588DE;
+    border-radius: 14px 0px 0px 0;
     img {
       height: 3rem;
     }
@@ -22,25 +25,27 @@
     align-items: center;
     overflow: auto;
     gap: 0.8rem;
+    background-color: #e7ffff;
     &::-webkit-scrollbar {
       width: 0.2rem;
       &-thumb {
-        background-color: #ffffff39;
+        background-color: #a3d5ea;
         width: 0.1rem;
         border-radius: 1rem;
       }
     }
     .dialog {
-      //background-color: #ffffff34;
-      //min-height: 5rem;
-      //cursor: pointer;
-      //width: 90%;
-      //border-radius: 0.2rem;
-      ////padding: 0.4rem;
-      //display: flex;
-      ////gap: 2rem;
-      //align-items: center;
+      margin-top: 5px;
+      background-color: #93c0e5;
+      min-height: 5rem;
+      cursor: pointer;
+      width: 90%;
+      padding: 0.6rem;
+      display: flex;
+      gap: 2rem;
+      align-items: center;
       transition: 0.5s ease-in-out;
+      border-radius: 14px;
       .avatar {
         img {
           border-radius: 50%;
@@ -49,16 +54,19 @@
       }
       .username {
         h3 {
-          color: white;
+          color: #fdf7f7;
         }
       }
     }
     .selected {
-      background-color: #9EC5AB; //
+      background: #6588DE;
+      box-shadow: 0 8px 40px rgba(0, 72, 251, 0.3);
+      border-radius: 14px;
     }
   }
   .current-user {
-    background-color: #16697A;
+    background-color: #6588DE;
+    border-radius: 0 0 0 14px;
     display: flex;
     justify-content: center;
     align-items: center;

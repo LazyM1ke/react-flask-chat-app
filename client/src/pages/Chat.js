@@ -4,6 +4,7 @@ import "./Chat.scss"
 import {useNavigate} from "react-router-dom";
 import ChatContainer from "../components/ChatContainer/ChatContainer";
 import {io} from "socket.io-client";
+import Welcome from "../components/Welcome/Welcome"
 
 const Chat = () => {
     const host = "http://localhost:5000"
@@ -42,7 +43,7 @@ const Chat = () => {
             <div className="chat-container">
                 <Dialogs changeChat={handleChatChange}/>
                 {currentChat === undefined ? (
-                    <h1>Hello world !</h1>
+                    <Welcome currentUser={currentUser}/>
                 ) : (
                     <ChatContainer currentChat={currentChat} currentUser={currentUser} socket={socket}/>
                 )}
