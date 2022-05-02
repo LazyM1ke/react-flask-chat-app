@@ -49,24 +49,43 @@ const Dialogs = ( {changeChat} ) => {
                 {filteredDialogs.map((dialog) => {
                     return (
 
-                        <ListItem
+                        // <ListItem
+                        //     key={dialog.id}
+                        //     className={`dialog ${
+                        //         dialog.id === currentSelected ? "selected" : ""
+                        //     }`}
+                        //     disablePadding
+                        //     onClick={() => changeCurrentChat(dialog.id, dialog)}
+                        // >
+                        //     <ListItemButton>
+                        //         <ListItemAvatar>
+                        //             <Avatar
+                        //                 alt="avatar"
+                        //                 src={ava}
+                        //             />
+                        //         </ListItemAvatar>
+                        //         <ListItemText primary={dialog.username} />
+                        //     </ListItemButton>
+                        // </ListItem>
+
+                        <div
                             key={dialog.id}
-                            className={`dialog ${
-                                dialog.id === currentSelected ? "selected" : ""
-                            }`}
-                            disablePadding
-                            onClick={() => changeCurrentChat(dialog.id, dialog)}
+                                className={`dialog ${
+                                    dialog.id === currentSelected ? "selected" : ""
+                                }`}
+                                disablePadding
+                                onClick={() => changeCurrentChat(dialog.id, dialog)}
                         >
-                            <ListItemButton>
-                                <ListItemAvatar>
-                                    <Avatar
-                                        alt="avatar"
-                                        src={ava}
-                                    />
-                                </ListItemAvatar>
-                                <ListItemText primary={dialog.username} />
-                            </ListItemButton>
-                        </ListItem>
+                            <div className="avatar">
+                                <img
+                                    src={ava}
+                                    alt="avatar"
+                                />
+                            </div>
+                            <div className="username">
+                                <h3>{dialog.username}</h3>
+                            </div>
+                        </div>
 
                     )
                 })}
