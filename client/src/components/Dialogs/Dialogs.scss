@@ -1,6 +1,6 @@
 .dialogs-container {
   display: grid;
-  grid-template-rows: 10% 75% 15%;
+  grid-template-rows: 10% 80% 10%;
   overflow: hidden;
   background: transparent;
   border-radius: 14px 0 0 14px;
@@ -9,7 +9,7 @@
     align-items: center;
     gap: 1rem;
     justify-content: center;
-    background-color: #6588DE;
+    background-color: #3390ec;//#6588DE;
     border-radius: 14px 0px 0px 0;
     img {
       height: 3rem;
@@ -42,10 +42,12 @@
       width: 90%;
       padding: 0.6rem;
       display: flex;
-      gap: 2rem;
+      gap: 1rem;
       align-items: center;
       transition: 0.5s ease-in-out;
       border-radius: 14px;
+      color: black;
+      font-size: 1.2rem;
       .avatar {
         img {
           border-radius: 50%;
@@ -59,21 +61,28 @@
       }
     }
     .selected {
-      background: #6588DE;
-      box-shadow: 0 8px 40px rgba(0, 72, 251, 0.3);
+      background: #3390ec;
+      //box-shadow: 0 8px 40px rgba(0, 72, 251, 0.3);
+      box-shadow: 5px 10px 30px rgba(0, 72, 251, 0.3);
+
       border-radius: 14px;
+      color: whitesmoke;
     }
   }
   .current-user {
-    background-color: #6588DE;
+    background-color: #3390ec;
     border-radius: 0 0 0 14px;
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 2rem;
+    .logOut {
+      cursor: pointer;
+      text-decoration: none;
+    }
     .avatar {
       img {
-        height: 5rem;
+        height: 4rem;
         border-radius: 50%;
         max-inline-size: 100%;
       }
@@ -82,10 +91,7 @@
       h2 {
         color: white;
       }
-    .logOut {
-        cursor: pointer;
-        text-decoration: none;
-      }
+
     }
     @media screen and (min-width: 720px) and (max-width: 1080px) {
       gap: 0.5rem;
