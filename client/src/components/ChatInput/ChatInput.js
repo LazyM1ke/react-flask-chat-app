@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import "./ChatInput.scss";
 import SendIcon from '@mui/icons-material/Send';
 import Picker from "emoji-picker-react";
+import Button from '@mui/material/Button';
 import InsertEmoticonIcon from '@mui/icons-material/InsertEmoticon';
 
 const ChatInput = ( {handleSendMsg, currentChat} ) => {
@@ -47,9 +48,10 @@ const ChatInput = ( {handleSendMsg, currentChat} ) => {
                     onChange={(e) => setMsg(e.target.value)}
                     value={msg}
                 />
-                <button type="submit">
-                    <SendIcon/>
-                </button>
+                {/*<button type="submit">*/}
+                {/*    <SendIcon/>*/}
+                {/*</button>*/}
+                <Button variant="contained" endIcon={<SendIcon />}></Button>
             </form>
         </div>
 
