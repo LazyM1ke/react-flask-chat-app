@@ -1,0 +1,18 @@
+.welcome {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  flex-direction: column;
+  background-color: #fff;
+  border-radius: 0 14px 14px 0;
+  img {
+    height: 24rem;
+  }
+  h1 {
+    color: #52585D;
+  }
+  span {
+    color: #9281ee;
+  }
+}
