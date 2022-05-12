@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 import Avatar from "../../assets/avatar.png";
 import "./ChatContainer.scss";
 import ChatInput from "../ChatInput/ChatInput";
@@ -8,6 +8,8 @@ import axios from "axios";
 const ChatContainer = ( {currentChat, currentUser, socket} ) => {
 
     const [messages, setMessages] = useState([]);
+    const scrollRef = useRef();
+    const [arrivalMessages, setArrivalMessages] = useState(null);
 
     useEffect(() => {
         axios.post("/api/get_messages", {
@@ -16,19 +18,42 @@ const ChatContainer = ( {currentChat, currentUser, socket} ) => {
         }).then(res => setMessages(...Object.values(res.data)))
     },[currentChat])
 
+
     const handleSendMsg = async (msg) => {
         await axios.post("/api/add_message", {
             from: currentUser,
             to: currentChat.username,
             message: msg,
-        }).then(res => console.log(res.data))
+        })
+
+        socket.current.emit("send_msg", {
+            from: currentUser,
+            to: currentChat.username,
+            message: msg,
+        });
 
 
         const msgs = [...messages];
-        msgs.push({fromSelf: true, message: msg});
+        msgs.push({fromself: "True", content: msg});
         setMessages(msgs);
-
     }
+
+    useEffect(() => {
+        if (socket.current) {
+            socket.current.on("recieve_msg", (msg) => {
+                setArrivalMessages({fromself: "False", content: msg})
+            })
+        }
+    },[])
+
+    useEffect(() => {
+        console.log(arrivalMessages)
+        arrivalMessages && setMessages((prev) => [...prev, arrivalMessages])
+    },[arrivalMessages])
+
+    useEffect(() => {
+        scrollRef.current?.scrollIntoView({ behavior: "smooth"});
+    }, [messages]);
 
     return (
         <div className="chat-cont">
@@ -58,12 +83,12 @@ const ChatContainer = ( {currentChat, currentUser, socket} ) => {
                             <div className="content ">
                                 <p>{message.content}</p>
                             </div>
-                        </div>
-                    );
+                        </div >
+                );
                 })}
-
+                <div ref={scrollRef}></div>
             </div>
-            <ChatInput handleSendMsg={handleSendMsg}/>
+            <ChatInput handleSendMsg={handleSendMsg} currentChat={currentChat}/>
         </div>
     );
 };

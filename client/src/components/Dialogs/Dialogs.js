@@ -48,22 +48,40 @@ const Dialogs = ( {changeChat} ) => {
 
                 {filteredDialogs.map((dialog) => {
                     return (
-
-                        <ListItem
-                            key={dialog.id}
-                            disablePadding
-                            onClick={() => changeCurrentChat(dialog.id, dialog)}
-                        >
-                            <ListItemButton>
+                            <ListItemButton
+                                key={dialog.id}
+                                className={`dialog ${
+                                    dialog.id === currentSelected ? "selected" : ""
+                                }`}
+                                disablePadding
+                                onClick={() => changeCurrentChat(dialog.id, dialog)}>
                                 <ListItemAvatar>
                                     <Avatar
                                         alt="avatar"
                                         src={ava}
                                     />
                                 </ListItemAvatar>
-                                <ListItemText primary={dialog.username} />
+                                <ListItemText primary={dialog.username} className='username' disableTypography='true'/>
                             </ListItemButton>
-                        </ListItem>
+
+                        // <div
+                        //     key={dialog.id}
+                        //         className={`dialog ${
+                        //             dialog.id === currentSelected ? "selected" : ""
+                        //         }`}
+                        //         disablePadding
+                        //         onClick={() => changeCurrentChat(dialog.id, dialog)}
+                        // >
+                        //     <div className="avatar">
+                        //         <img
+                        //             src={ava}
+                        //             alt="avatar"
+                        //         />
+                        //     </div>
+                        //     <div className="username">
+                        //         <h3>{dialog.username}</h3>
+                        //     </div>
+                        // </div>
 
                     )
                 })}
