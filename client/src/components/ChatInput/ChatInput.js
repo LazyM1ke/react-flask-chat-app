@@ -48,10 +48,7 @@ const ChatInput = ( {handleSendMsg, currentChat} ) => {
                     onChange={(e) => setMsg(e.target.value)}
                     value={msg}
                 />
-                {/*<button type="submit">*/}
-                {/*    <SendIcon/>*/}
-                {/*</button>*/}
-                <Button variant="contained" endIcon={<SendIcon />}></Button>
+                <Button type="submit" variant="contained" endIcon={<SendIcon />}></Button>
             </form>
         </div>
 
