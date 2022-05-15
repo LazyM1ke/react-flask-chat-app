@@ -9,8 +9,8 @@
     align-items: center;
     gap: 1rem;
     justify-content: center;
-    background-color: #3390ec;//#6588DE;
-    border-radius: 14px 0px 0px 0;
+    background-color: #3390ec;
+    border-radius: 14px 0 0 0;
     img {
       height: 3rem;
     }
@@ -62,9 +62,7 @@
     }
     .selected {
       background: #3390ec;
-      //box-shadow: 0 8px 40px rgba(0, 72, 251, 0.3);
       box-shadow: 5px 10px 30px rgba(0, 72, 251, 0.3);
-
       border-radius: 14px;
       color: whitesmoke;
     }
