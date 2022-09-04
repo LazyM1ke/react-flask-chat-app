@@ -68,6 +68,10 @@ const ChatContainer = ( {currentChat, currentUser, socket} ) => {
                     <div className="username">
                         <h3>{currentChat.username}</h3>
                     </div>
+                    <div className="status">
+                        <h3>status</h3>
+                    </div>
+                    
                 </div>
             </div>
             <div className="chat-messages">

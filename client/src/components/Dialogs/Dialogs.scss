@@ -37,7 +37,7 @@
     .dialog {
       margin-top: 5px;
       background-color: #93c0e5;
-      min-height: 5rem;
+      max-height: 5rem;
       cursor: pointer;
       width: 90%;
       padding: 0.6rem;
@@ -47,7 +47,7 @@
       transition: 0.5s ease-in-out;
       border-radius: 14px;
       color: black;
-      font-size: 1.2rem;
+      font-size: 1.6rem;
       .avatar {
         img {
           border-radius: 50%;
